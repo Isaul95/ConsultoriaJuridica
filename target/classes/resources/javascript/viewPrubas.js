@@ -9,5 +9,6 @@ $(document).ready(function(){
 //        $('#tituloModalManCategoria').html("REGISTRAR CATEGORIA");
         
     });
+//    --
     
 });    
