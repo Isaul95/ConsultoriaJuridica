@@ -1,10 +1,16 @@
-//1
+
 $(document).ready(function(){ // Esta parte es para realizar la carga de la pagina *DESDE EL INICIO*
-		//2
-	llenarTablaRamoJuzgado();
+		
+	llenarTablaRamoJuzgado(); // Llamamos la function de llenar tabla al inicio de cargar la pagina
 	dataTable();
 	
-	});
+     // Al precionar el Boton "Agregar Nuevo Ramo" x medio se javascrip abriremos el modal
+	 $('#btn_AbrirModalRamo').click(function () {
+	    	$('#ventanaModalRamo').modal('show'); // <-- Este -> ventanaModalRamo es el Ide del modal Ramo le estamos diciendo cuando damos click en el boton de la vista ->"Agregar Nuevo Ramo" con el -> .modal-show va a mostrarnos el modal
+	    	$('#nombre_ramo').val("");     // Cuando nos muestre/presente el modal para agregar new ramo nos va limpar el campo de texto
+	   });
+	
+});  // Termina  - $(document).ready
 
 
 
@@ -33,14 +39,23 @@ function llenarTablaRamoJuzgado(){
 						data: "nombre",
 					},
 					{
-						ClassName : "text-center",
+						className: "text-center",
 						data: function(row, type, set){
 							var a;
-							a = `<a href="#" id="eliminar_ramo" class="btn btn-danger btn-remove" value="${row.idRamo}"><i class="fas fa-trash-alt"></i></a>`;
+							a = `<a href="#" id="eliminar_ramo" class="btn btn-danger btn-remove" value="${row.idRamo}"><i class="fa fa-trash"></i></a>`;
 							
 							return a;
 						}						
-					}	                  
+					},
+					{
+						className: "text-center",
+						data: function(row, type, set){			// fa-2x
+							var a;
+							a = `<a href="#" id="editar_ramo" class="btn btn-success" value="${row.idRamo}"><i class="fa fa-edit"></i></a>`;
+							
+							return a;
+						}						
+					}
 					]
 					 
 				});
@@ -83,7 +98,7 @@ $(document).on("click","#eliminar_ramo",function(e){
 
 $(document).on("click","#boton_guardarRamo",function(e){
 	e.preventDefault();
-	var nameRamoSeExtraeDesdeCajaDeTexto = $('#id_ramo').val(); // Asi estamos recojiendo informacion de la ACAJA DE TEXTO DESDE LA VISTA
+	var nameRamoSeExtraeDesdeCajaDeTexto = $('#nombre_ramo').val(); // Asi estamos recojiendo informacion de la ACAJA DE TEXTO DESDE LA VISTA
 //	var nombre = $('#nombre').val();
 //	var sexo = $('#sexo').val();
 //	var edad = $('#edad').val();
@@ -102,7 +117,9 @@ $(document).on("click","#boton_guardarRamo",function(e){
 		success: function(respuestadelcontrolador){
 			if (respuestadelcontrolador==1){
 				alert("Nuevo ramo agregado...");
-				llenarTablaRamoJuzgado();				
+				$('#nombre_ramo').val("");           // Una vez que se inserto registro en la DB el campo de texto lo va a limpiar, esto para que cuando volvamos a abrir el modal ya no tenga informacion anterior
+				$("#ventanaModalRamo").modal("hide");  // Una vez que se inserto registro en la DB se oculta el modal para que nos muestre la tabla.
+				llenarTablaRamoJuzgado();	         // Una vez que se inserto registro en la DB se manda a llamar la function de llenar tabla para que refresque la tabla y aparesca el registro nuevo.			
 			}
 			else{alert("Ramo no agregado.!");}
 		}

@@ -6,7 +6,7 @@
  <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Sistema Juridica</title>
+        <title>Consultoría Juridica</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/Icons/resources_app/favicon.png">       
         <link rel="stylesheet" href="<c:url value="/resources/assets/css/bootstrap.min.css"/>"type="text/css"><link>        
