@@ -91,6 +91,35 @@ public class RamoController {
 	
 	
 	
+//	 Obtener el registro del catalogo de ramo donde especificamente corresponda el id que estamos seleccionando.
+	@ResponseBody 
+	@RequestMapping(value = "/ObtenerRamoPorId", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity <RamoDTO> obtenerRamoPorId(@ModelAttribute RamoDTO ramoDto){  // idramo = idramo.getIdRamo();
+		final HttpHeaders headers =new HttpHeaders();  // idramo.getIdRamo(); = 5
+		RamoDTO ramo = new RamoDTO();
+		ramo = service.actualizarInformacion(ramoDto);		
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		return new ResponseEntity <RamoDTO> (ramo, headers, HttpStatus.OK);
+	}	
+	
+	
+	
+//	En esta parate una vez cosultado la informacion del ramo por el id el metodo de la linea 96, ahora si procedemos a realizar 
+//	el update al registro
+	
+	@ResponseBody 
+	@RequestMapping(value = "/ActualizarRamo", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity <Integer> actualizarRamoPorId(@ModelAttribute RamoDTO nuevo){
+		final HttpHeaders headers =new HttpHeaders();
+		System.out.println("UpdateDates ->" + nuevo.getIdRamo() + nuevo.getNombre());
+		int respuesta=0;
+		respuesta=service.ActualizarCatRamosDB(nuevo);		
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		return new ResponseEntity <Integer> (respuesta, headers, HttpStatus.OK);
+	}		
+
+	
+	
 
 	
 }  // Fin de la clase RamoController  

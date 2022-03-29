@@ -45,6 +45,12 @@
 
 <body>
 
+ <!-- preloader area start -->
+        <div id="preloader">
+            <div class="loader"></div>
+        </div>
+        <!-- preloader area end -->
+
 <!-- page container area start  INICIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ENGLOBA TODO-->
 <div class="page-container">
 
@@ -171,28 +177,23 @@
 
 
 
-								<!-- Modal 2 ESTE MODAL ES PARA ACTUALIZAR INFORMACION DEL RAMO-->
-								<div class="modal" tabindex="-1" role="dialog" id="modalactualizaralumno">
+<!-- Modal 2 ESTE MODAL ES PARA ACTUALIZAR INFORMACION DEL RAMO-->
+								<div class="modal fade" id="modalActualizarRamo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title">Actualizar alumno</h5>
+												<h5 class="modal-title">Actualizar catalogo de ramo</h5>
 											</div>
-											<input type="hidden" id="idalumno_actualizar">
+											<input type="hidden" id="idRamo_actualizar">
 											<div class="modal-body">
-												<label for="">Apellido: </label> 
-												<input type="text" class="form-control" id="apellido_actualizar" placeholder="Apellido del alumno"> <br> 
-												<label for="">Nombre: </label> <input type="text" class="form-control" id="nombre_actualizar" placeholder="Nombre del alumno" /> <br> 
-												<label for="">sexo: </label> 
-												<input type="text" class="form-control" id="sexo_actualizar" placeholder="Sexo del alumno" /> <br>
-												<label for="">Edad: </label> <input type="text" class="form-control" id="edad_actualizar" placeholder="Edad  del alumno" /> <br> 
-												<label for="">Telefono: </label> 
-												<input type="text" class="form-control" id="telefono_actualizar" placeholder="Telefono del alumno" />
+												<label for="">Ramo: </label> 
+												<input type="text" class="form-control" id="nombre_ramo_actualizar"> <br> 												
 												<br>
 											</div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-dismiss="modal" id="Boton_cerrar" onclick="document.getElementById('modalactualizaralumno').style.display='none'">Cerrar</button>
-												<button type="submit" class="btn btn-primary" id="Botactualizar" onclick="document.getElementById('modalactualizaralumno').style.display='none'">Actualizar alumno</button>
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+										<!--    <button type="submit" class="btn btn-primary" id="BotonActualizarRamo" onclick="document.getElementById('modalactualizaralumno').style.display='none'">Actualizar ramo</button> -->
+												<button type="button" class="btn btn-primary" id="BotonActualizarRamo" onclick="click">Guardar cambios</button>
 											</div>
 										</div>
 									</div>
@@ -204,7 +205,21 @@
 			</div>
 			<!-- AKI TERMINA EL CONTENEDOR DE LOS COMPONENTES  -->
 	            </div>
-<!--  AKI TERMINA EL CUERPO (la parte blanca de la vista) DONDE VAN LOS COMPONENTES******************************************* -->          
+<!--  AKI TERMINA EL CUERPO (la parte blanca de la vista) DONDE VAN LOS COMPONENTES******************************************* -->
+
+           <div class="modal" id="modalCargandoCategoria" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top: 18%; overflow-y: visible;">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="progress" style="margin-bottom: 0px;">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                    Cargando...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>          
             
        <!-- footer area start-->
             <jsp:include page="footer.jsp"/>

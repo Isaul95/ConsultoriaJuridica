@@ -21,8 +21,8 @@ public class ServiceImpl implements ServiceInterface{
 	}
 
 	@Override
-	public void actualizarInformacion() {
-		// TODO Auto-generated method stub
+	public RamoDTO actualizarInformacion(RamoDTO ramoDto) {
+		return dao.actualizarInformacion(ramoDto);
 		
 	}
 
@@ -35,6 +35,11 @@ public class ServiceImpl implements ServiceInterface{
 	public int insertarInformacion(RamoDTO newInformacion) {
 		return dao.insertarInformacion(newInformacion);
 		
+	}
+
+	@Override
+	public int ActualizarCatRamosDB(RamoDTO nuevo) {
+		return dao.UpdateCatRamosDB(nuevo);
 	}
 
 }

@@ -25,9 +25,10 @@ public class RepositorioImpl implements RepositorioDao{
 		return jdbcTemplate.query("SELECT * FROM CATALOGO_RAMO", new RamoMapper<RamoDTO>());
 	}
 	@Override
-	public void actualizarInformacion() {
-		// TODO Auto-generated method stub
-		
+	public RamoDTO actualizarInformacion(RamoDTO ramoDto) {
+		jdbcTemplate.setDataSource(dataSource);
+		Object [] idramo = {ramoDto.getIdRamo()};      // Se crea un areglo de tipo object
+		return jdbcTemplate.queryForObject("SELECT * FROM CATALOGO_RAMO WHERE ID_RAMO=?", idramo,new RamoMapper<RamoDTO>());
 	}
 	@Override
 	public int eliminarInformacion(RamoDTO identificador) {
@@ -54,6 +55,14 @@ public class RepositorioImpl implements RepositorioDao{
 	}
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
+	}
+	
+//	Este metodo es el que ejecuta el query = Update ala base de datos
+	@Override
+	public int UpdateCatRamosDB(RamoDTO nuevo) {
+		jdbcTemplate.setDataSource(dataSource);		         // Contiene la conexion a la DB
+		
+		return jdbcTemplate.update("UPDATE CATALOGO_RAMO SET NOMBRE=? WHERE ID_RAMO=? ", nuevo.getNombre(),nuevo.getIdRamo() );
 	}
 
 }
