@@ -2,12 +2,9 @@ package mx.consultoria.juridica.especializada.repository;
 
 import java.sql.Types;
 import java.util.List;
-
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-
 import mx.consultoria.juridica.especializada.dto.RamoDTO;
 import mx.consultoria.juridica.especializada.mapper.RamoMapper;
 

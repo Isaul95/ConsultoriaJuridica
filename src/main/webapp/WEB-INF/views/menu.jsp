@@ -13,7 +13,8 @@
                 <li>
                     <a href="javascript:void(0)"><i class="fa fa-tag"></i><span>Catalogos</span></a>
                     <ul class="collapse">
-                        <li><a class="item" href="<c:url value='CatalogoRamoJuzgado'/>"><i class="fa fa-cubes" ></i> Ramo y juzgado</a></li>
+                        <li><a class="item" href="<c:url value='CatalogoRamoJuzgado'/>"><i class="fa fa-cubes" ></i> Ramos</a></li>
+                        <li><a class="item" href="<c:url value='CatalogoJuzgado'/>"><i class="fa fa-cubes" ></i> Juzgado</a></li>
                         <li><a class="item" href="<c:url value='viewPruebaTemplate'/>"><i class="fa fa-cubes" ></i> viewPruebaTemplate</a></li>
                     </ul>
                 </li>
