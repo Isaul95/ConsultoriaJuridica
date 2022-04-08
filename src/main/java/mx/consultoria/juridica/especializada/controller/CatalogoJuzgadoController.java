@@ -1,6 +1,7 @@
 package mx.consultoria.juridica.especializada.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,52 +13,43 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import mx.consultoria.juridica.especializada.dto.RamoDTO;
-import mx.consultoria.juridica.especializada.service.ServiceInterface;
 
-
-// ******************************************************************************
-// Este Controller solo se usara para realizar los proceso de RAMO y JUZGADO
-//*******************************************************************************
-
+import mx.consultoria.juridica.especializada.dto.CatalogoJuzgadoDTO;
+import mx.consultoria.juridica.especializada.service.ServiceCatalogoJuzgadoInterface;
 
 @Controller
-public class RamoController {
-	
-// Se hace la inyeccion de independencia para usar la anotacion de la linea #12
-	@Autowired
-	ServiceInterface service; // Se llama la inetrfaz del servicio donde tenemos SOLO declarados los metodos a utilizar
+public class CatalogoJuzgadoController {
 
-//	Este metodo nos redirecciona solo a la vista .jsp SOLO ES PARA ESO SE UTILIZA
-	@RequestMapping(value="/CatalogoRamoJuzgado", method = RequestMethod.GET)
-	public  String vista_Asuntos(ModelMap modelo) {
+	@Autowired
+	ServiceCatalogoJuzgadoInterface service;
+	
+	@RequestMapping(value="/CatalogoJuzgado", method = RequestMethod.GET)// URL
+	public  String vista(ModelMap modelo) { // NOMBRE DEL METOD
 					
-	return "viewCatalogosRamoJusgado";  // <---- Esta es la vista en la carpeta WEB-INF/views
+	return "viewCatalogosJuzgado";  // <---- Esta es la vista en la carpeta src/main/webapp/WEB-INF/views
 	}
 	
-	
-
 //	Este metodo se usa para hacer la consulta de la informacion a la BD y almacenarla en en la tabla
 	@ResponseBody 
-	@RequestMapping(value="/ObtenerDatosRamo", method = RequestMethod.GET, produces="application/json")
-	public ResponseEntity <List<RamoDTO>> obtenerRamos(){
+	@RequestMapping(value="/ObtenerCatalogoJuzgados", method = RequestMethod.GET, produces="application/json") //URL
+	public ResponseEntity <List<CatalogoJuzgadoDTO>> obtenerJuzgados(){//METHOD NAME
 		
 		final HttpHeaders headers =new HttpHeaders();
 		
 		                               //10 REGISTROS DE BASE DE DATOS
-	List<RamoDTO> listadeRamos = service.listadoInformacion();
+	List<CatalogoJuzgadoDTO> listadeJuzgados = service.listadoInformacion();
 	//listadeRamos VA A TENER TODOS ESOS 10 REGISTROS
 
 	headers.setContentType(MediaType.APPLICATION_JSON);
-		return new ResponseEntity <List<RamoDTO>> (listadeRamos, headers, HttpStatus.OK);
+		return new ResponseEntity <List<CatalogoJuzgadoDTO>> (listadeJuzgados, headers, HttpStatus.OK);// SE RETORNA LISTA Y ESTADO 202
 	}
 	
 	
 	
 //	
 	@ResponseBody 
-	@RequestMapping(value="/EliminarCatRamo", method = RequestMethod.POST, produces="application/json")
-	public ResponseEntity <Integer> eliminarRamo(@ModelAttribute RamoDTO identificador){
+	@RequestMapping(value="/EliminarCatalogoJuzagado", method = RequestMethod.POST, produces="application/json")
+	public ResponseEntity <Integer> eliminarRamo(@ModelAttribute CatalogoJuzgadoDTO identificador){
 		
 		final HttpHeaders headers =new HttpHeaders();
 		int respuesta = 0;
@@ -74,8 +66,8 @@ public class RamoController {
 	
 // Agregar registris ala base de datos..
 	@ResponseBody 
-	@RequestMapping(value="/AgregarNewRamo", method = RequestMethod.POST, produces="application/json")
-	public ResponseEntity <Integer> agregarRamo(@ModelAttribute RamoDTO newInformacion){
+	@RequestMapping(value="/AgregarNewCatalogoJuzgado", method = RequestMethod.POST, produces="application/json")
+	public ResponseEntity <Integer> agregarRamo(@ModelAttribute CatalogoJuzgadoDTO newInformacion){
 		
 	System.out.println(newInformacion);
 		
@@ -93,13 +85,13 @@ public class RamoController {
 	
 //	 Obtener el registro del catalogo de ramo donde especificamente corresponda el id que estamos seleccionando.
 	@ResponseBody 
-	@RequestMapping(value = "/ObtenerRamoPorId", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity <RamoDTO> obtenerRamoPorId(@ModelAttribute RamoDTO ramoDto){  // idramo = idramo.getIdRamo();
+	@RequestMapping(value = "/ObtenerCatalogoJuzgadoPorId", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity <CatalogoJuzgadoDTO> obtenerRamoPorId(@ModelAttribute CatalogoJuzgadoDTO CatalogoJuzgadoDTO){  // idramo = idramo.getIdRamo();
 		final HttpHeaders headers =new HttpHeaders();  // idramo.getIdRamo(); = 5
-		RamoDTO ramo = new RamoDTO();
-		ramo = service.actualizarInformacion(ramoDto);		
+		CatalogoJuzgadoDTO ramo = new CatalogoJuzgadoDTO();
+		ramo = service.obtenerInformacion(CatalogoJuzgadoDTO);		
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		return new ResponseEntity <RamoDTO> (ramo, headers, HttpStatus.OK);
+		return new ResponseEntity <CatalogoJuzgadoDTO> (ramo, headers, HttpStatus.OK);
 	}	
 	
 	
@@ -108,18 +100,14 @@ public class RamoController {
 //	el update al registro
 	
 	@ResponseBody 
-	@RequestMapping(value = "/ActualizarRamo", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity <Integer> actualizarRamoPorId(@ModelAttribute RamoDTO nuevo){
+	@RequestMapping(value = "/ActualizarCatalogoJuzgado", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity <Integer> actualizarRamoPorId(@ModelAttribute CatalogoJuzgadoDTO nuevo){
 		final HttpHeaders headers =new HttpHeaders();
-		System.out.println("UpdateDates ->" + nuevo.getIdRamo() + nuevo.getNombre());
+//		System.out.println("UpdateDates ->" + nuevo.getIdRamo() + nuevo.getNombre());
 		int respuesta=0;
-		respuesta=service.ActualizarCatRamosDB(nuevo);		
+		respuesta=service.actualizarInformacion(nuevo);		
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		return new ResponseEntity <Integer> (respuesta, headers, HttpStatus.OK);
 	}		
-
 	
-	
-
-	
-}  // Fin de la clase RamoController  
+}

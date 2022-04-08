@@ -6,19 +6,22 @@ $(document).ready(function(){ // Esta parte es para realizar la carga de la pagi
 	
      // Al precionar el Boton "Agregar Nuevo Ramo" x medio se javascrip abriremos el modal
 	 $('#btn_AbrirModalRamo').click(function () {
+		 debugger;
+//		 alert("INICIAAAA...");
+//		 $('#modalCargandoCategoria').modal('show');
 	    	$('#ventanaModalRamo').modal('show'); // <-- Este -> ventanaModalRamo es el Ide del modal Ramo le estamos diciendo cuando damos click en el boton de la vista ->"Agregar Nuevo Ramo" con el -> .modal-show va a mostrarnos el modal
 	    	$('#nombre_ramo').val("");     // Cuando nos muestre/presente el modal para agregar new ramo nos va limpar el campo de texto
+//	    	$('#modalCargandoCategoria').modal('hide');
 	   });
-	
+	 
+	 
 });  // Termina  - $(document).ready
 
 
 
-
-
-//3
 // Se consulta la lista de ramos
 function llenarTablaRamoJuzgado(){
+//	
 	var table = $('#tbl_ramos').DataTable();
 	table.destroy(); // Destruir la informacion
 	$.ajax({
@@ -64,6 +67,66 @@ function llenarTablaRamoJuzgado(){
 }
 
 
+// Esta parte es para consultar la informacion
+
+$(document).on("click","#editar_ramo",function(e){
+	e.preventDefault();
+	var idTraidoDesdeElBotonActualizar = $(this).attr("value");
+	$.ajax({
+		type: "post",
+		url: "/ConsultoriaJuridica/ObtenerRamoPorId",
+		data: {
+			idRamo: idTraidoDesdeElBotonActualizar,
+		},
+		dataType: "json",
+		success: function(data){
+//		 document.getElementById('modalActualizarRamo').style.display='block'
+			$('#modalActualizarRamo').modal('show');
+	       $('#idRamo_actualizar').val(data.idRamo);  // 11 
+           $('#nombre_ramo_actualizar').val(data.nombre); // New ramo
+		}
+});
+
+});
+
+
+
+// Esta function es la principal donde ejecutamos el update a la base de datos.
+
+$(document).on("click","#BotonActualizarRamo",function(e){
+	e.preventDefault();
+	/*debugger;*/
+	var idTraidoDesdeElBotonActualizar = $('#idRamo_actualizar').val();
+	var nombreksevaActualizar = $('#nombre_ramo_actualizar').val();	
+	
+	$.ajax({
+		type: "post",
+		url: "/ConsultoriaJuridica/ActualizarRamo",
+		data: {
+			idRamo: idTraidoDesdeElBotonActualizar,
+			nombre: nombreksevaActualizar,			
+		},
+		dataType: "json",
+		success: function(respuestadelcontrolador){
+			if (respuestadelcontrolador==1){
+				alert("El catalogo de ramos fue actualizado...");
+				$("#modalActualizarRamo").modal("hide");
+				llenarTablaRamoJuzgado();
+				
+			}
+			else{alert("Catalogo de ramos no actualizado");}
+		}
+});
+
+});
+
+
+
+
+
+
+
+
 
 // Al momento de dar click sobre el icono se ejecuta esta funcion para ejecitar la peticion y se elimne el registro.
 
@@ -97,7 +160,11 @@ $(document).on("click","#eliminar_ramo",function(e){
 // function para insertar informacion ala base de datos
 
 $(document).on("click","#boton_guardarRamo",function(e){
+	debugger;
 	e.preventDefault();
+	alert("linea 100");
+//	$('#modalCargandoCategoria').modal('show');
+	
 	var nameRamoSeExtraeDesdeCajaDeTexto = $('#nombre_ramo').val(); // Asi estamos recojiendo informacion de la ACAJA DE TEXTO DESDE LA VISTA
 //	var nombre = $('#nombre').val();
 //	var sexo = $('#sexo').val();
@@ -115,6 +182,8 @@ $(document).on("click","#boton_guardarRamo",function(e){
 		},
 		dataType: "json",
 		success: function(respuestadelcontrolador){
+			alert("linea 120 respuesta");
+//			$('#modalCargandoCategoria').modal("hide");
 			if (respuestadelcontrolador==1){
 				alert("Nuevo ramo agregado...");
 				$('#nombre_ramo').val("");           // Una vez que se inserto registro en la DB el campo de texto lo va a limpiar, esto para que cuando volvamos a abrir el modal ya no tenga informacion anterior

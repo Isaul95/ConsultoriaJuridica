@@ -13,7 +13,7 @@
 <!-- Esstos scripts se ocupan  -->
 	<script lenguaje="JavaScript" type="text/javascript" src="<c:url value="/resources/javascript/jquery-3.2.1.js" />"></script>
 	<script lenguaje="JavaScript" type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-	<script lenguaje="JavaScript" type="text/javascript" src="<c:url value="/resources/javascript/ramoJusgado.js"/>"></script>
+	<script lenguaje="JavaScript" type="text/javascript" src="<c:url value="/resources/javascript/CatalogoJuzgado.js"/>"></script>
     	
 	<meta charset="ISO-8859-1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -119,18 +119,18 @@
 								<hr>
 								<br>
 								<!-- Button que se presenta en el body del html PARA ABRIR EL MODAL-->
-								<button type="button" class="btn btn-primary" id="btn_AbrirModalRamo"><!-- Para abrir modal el boton se le agrego un ide vamos a abrir el modal por medio de JavaScript en el archivo  .js -->
+								<button type="button" class="btn btn-primary" id="btn_AbrirModalJuzgado"><!-- Para abrir modal el boton se le agrego un ide vamos a abrir el modal por medio de JavaScript en el archivo  .js -->
 									<i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
 								</button>
 								
 								<br><br>
 								<div width="50%">
 									<!-- La tabla para listar informacion  -->
-									<table class="table" id="tbl_ramos">
+									<table class="table" id="tbl_juzgados">
 										<thead class="bg-dark">
 											<tr class="text-white">
 												<th scope="col"></th>
-												<th scope="col">NOMBRE DEL RAMO</th>
+												<th scope="col">NOMBRE DEL JUZGADO</th>
 												<th style="width: 15%">ELIMINAR</th>
 												<th style="width: 15%">EDITAR</th>
 											</tr>
@@ -142,18 +142,18 @@
 								<br>
 								<br>
 
-								<!--------------------------- INICIA Modal para registrar el nueo ramo ------------------------------------------>
+								<!--------------------------- INICIA Modal para registrar el nueo juzgado ------------------------------------------>
 
-								<div class="modal fade" id="ventanaModalRamo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+								<div class="modal fade" id="ventanaModalJuzgado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
 												<h5 class="modal-title" id="staticBackdropLabel">
-													Agregar catalogo de ramos</h5>
+													Agregar un juzgado</h5>
 												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
 											<div class="modal-body" id="contenido">
-												<label for="">Nuevo ramo:</label> <input type="text" class="form-control" id="nombre_ramo" placeholder="Agregar nuevo ramo...">
+												<label for="">Nuevo juzagdo:</label> <input type="text" class="form-control" id="nombre_juzgado" placeholder="Agregar nuevo ramo...">
 												<!--  <label for="">Nombre:</label>
 											        <input type="text" class="form-control" id="nombre" placeholder="Nombre del alumno">
 											        <label for="">Sexo:</label>
@@ -165,7 +165,7 @@
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-												<button type="button" class="btn btn-primary" id="boton_guardarRamo" onclick="click">Guardar cambios</button>
+												<button type="button" class="btn btn-primary" id="boton_guardarJuzgado" onclick="click">Guardar cambios</button>
 											</div>
 										</div>
 									</div>

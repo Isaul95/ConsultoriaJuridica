@@ -6,7 +6,8 @@ import mx.consultoria.juridica.especializada.dto.RamoDTO;
 
 public interface RepositorioDao {
 	public List<RamoDTO> listadoInformacion();
-	public void actualizarInformacion();	
+	 RamoDTO actualizarInformacion(RamoDTO ramoDto);	
 	public int eliminarInformacion(RamoDTO identificador);
 	public int insertarInformacion(RamoDTO newInformacion);
+	public int UpdateCatRamosDB(RamoDTO nuevo);
 }
